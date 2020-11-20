@@ -6,18 +6,17 @@ LABEL maintainer="Z. Fu <z.fu@live.com>"
 
 USER root
 
-# 
-
-# Copy needed ssh private for cloning git repo
-RUN cp /
+# Create git folder in pwd if not existing
+RUN mkdir -p git && cd git/
 
 # Clone the docker-deploy repo
-RUN cd /git/ && git clone git clone fu-zhiwei@vs-ssh.visualstudio.com:v3/fu-zhiwei/docker-deploy/docker-deploy
+RUN git clone git clone https://github.com/fu-zhiwei/docker-deploy.git
+
+# Back to original workdir
+RUN cd ..
 
 # Create new py env "main" from yaml file
 RUN conda env -n main -q -y -f=/git/docker-deploy/py_main/main.yaml
 
 # Use main by default
 RUN conda activate main
-
-WORKDIR $HOME
