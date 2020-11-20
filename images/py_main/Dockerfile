@@ -10,13 +10,13 @@ USER root
 RUN mkdir -p git && cd git/
 
 # Clone the docker-deploy repo
-RUN git clone git clone https://github.com/fu-zhiwei/docker-deploy.git
+RUN git clone https://github.com/fu-zhiwei/docker-deploy.git
 
 # Back to original workdir
 RUN cd ..
 
 # Create new py env "main" from yaml file
-RUN conda env -n main -q -y -f=/git/docker-deploy/py_main/main.yaml
+RUN conda env create -q -f=./git/docker-deploy/py_main/main.yaml
 
 # Use main by default
 RUN conda activate main
